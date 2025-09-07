@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const liveReload = require("livereload");
@@ -6,7 +7,7 @@ const path = require("path");
 const methodOverride = require("method-override");
 const Router = require("./router/all.route");
 const app = express();
-const port = process.env.PORT || 4000;
+const port = process.env.PORT;
 
 const liveReloadServer = liveReload.createServer();
 
@@ -42,7 +43,7 @@ app.all("/:notresourse" , (req, res) => {
 
 mongoose
   .connect(
-    "mongodb+srv://devahmed:pqhHGgGMGcAtvvPN@cluster0.poqwwx7.mongodb.net/all-data?retryWrites=true&w=majority&appName=Cluster0"
+    process.env.MONGO_DB_URL
   )
   .then(() => {
     app.listen(port, () => {
@@ -53,3 +54,4 @@ mongoose
   .catch((error) => {
     console.log(error);
   });
+
